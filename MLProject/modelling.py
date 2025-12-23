@@ -17,7 +17,11 @@ REPO_NAME = "Eksperimen_SML_Angga_Zakariya"
 def main():
     print("Menginisialisasi DagsHub...")
 
-    dagshub_token = os.getenv("DAGSHUB_TOKEN")
+    token = os.getenv("DAGSHUB_TOKEN")
+    if token:
+        print("Authenticating with DAGSHUB_TOKEN...")
+        # Paksa login pakai token supaya gak minta browser
+        dagshub.auth.add_app_token(token)
 
     dagshub.init(repo_owner=DAGSHUB_USERNAME, repo_name=REPO_NAME, mlflow=True)
     mlflow.set_experiment("Eksperimen_Diabetes_Advance")
